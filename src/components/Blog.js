@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const BlogDetails = ({ blog, deleteHandler, likeHandler, user }) => (
-  <div>
+  <div className="blogDetails">
     <p>{blog.url}</p>
-    <p>likes {blog.likes} <button onClick={() => likeHandler(blog)}>like</button></p>
-    <p>{blog.user.name}</p>
+    <p className='blogLikes'>likes {blog.likes} <button onClick={() => likeHandler(blog)}>like</button></p>
+    <p className='blogUser'>{blog.user.name}</p>
     {blog.user.name === user.name &&
-      <button onClick={() => deleteHandler(blog)}>
+      <button className='deleteBlog' onClick={() => deleteHandler(blog)}>
         delete
       </button>
     }
@@ -33,8 +33,9 @@ const Blog = ({ blog, deleteHandler, likeHandler, user }) => {
   const [show, setShow] = useState(false)
 
   return (
-    <div style={blogStyle}>
-      {blog.title} {blog.author}
+    <div className='blog' style={blogStyle}>
+      <span className='blogTitle'>{blog.title}</span>
+      <span className='blogAuthor'>{blog.author}</span>
       <button onClick={() => setShow(!show)}>
         {show ? 'hide' : 'view'}
       </button>
