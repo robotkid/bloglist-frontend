@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Togglable = ({buttonLabel, children}) => {
+const Togglable = ({ buttonLabel, children }) => {
   const [visible, setVisible] = useState(false)
 
   const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -22,5 +22,7 @@ const Togglable = ({buttonLabel, children}) => {
     </div>
   )
 }
+
+Togglable.displayName = 'Togglable'
 
 export default Togglable

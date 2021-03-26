@@ -13,7 +13,7 @@ const LoginForm = ({ handleLogin }) => {
       }}>
         <div>
           username
-            <input
+          <input
             type="text"
             value={username}
             name="username"
@@ -22,7 +22,7 @@ const LoginForm = ({ handleLogin }) => {
         </div>
         <div>
           password
-            <input
+          <input
             type="password"
             value={password}
             name="password"

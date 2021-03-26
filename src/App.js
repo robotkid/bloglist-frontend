@@ -13,10 +13,10 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
 
-const setBlogs = (newBlogs) => {
-  newBlogs.sort((a,b) => b.likes - a.likes)
-  setSortedBlogs(newBlogs)
-}
+  const setBlogs = (newBlogs) => {
+    newBlogs.sort((a,b) => b.likes - a.likes)
+    setSortedBlogs(newBlogs)
+  }
 
   useEffect(() => {
     (async () => {
@@ -90,7 +90,7 @@ const setBlogs = (newBlogs) => {
   }
 
   const handleLike = async blog => {
-    const updatedBlog = {...blog}
+    const updatedBlog = { ...blog }
     updatedBlog.likes++
     const returnedBlog = await blogService.updateBlog(updatedBlog)
     const updatedBlogs = [...blogs]
