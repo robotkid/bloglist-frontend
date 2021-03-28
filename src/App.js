@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import BlogList from './components/BlogList'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
@@ -12,6 +12,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
+  const blogFormRef = useRef()
 
   const setBlogs = (newBlogs) => {
     newBlogs.sort((a,b) => b.likes - a.likes)
@@ -23,11 +24,11 @@ const App = () => {
       const returnedBlogs = await blogService.getAll()
       setBlogs(returnedBlogs)
     })()
-  }, [])
+  }, [user])
 
   useEffect(() => {
     const loggedInUserJSON = window.localStorage.getItem('loggedInUser')
-    if (loggedInUserJSON) {
+    if (loggedInUserJSON && !user) {
       const loggedInUser = JSON.parse(loggedInUserJSON)
       setUser(loggedInUser)
       blogService.setToken(loggedInUser.token)
@@ -35,6 +36,7 @@ const App = () => {
   }, [])
 
   const addBlog = async newBlog => {
+    blogFormRef.current.toggleVisibility()
     const returnedBlog = await blogService.create(newBlog)
     setBlogs(blogs.concat(returnedBlog))
     setSuccessMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
@@ -52,6 +54,7 @@ const App = () => {
         'loggedInUser', JSON.stringify(userResponse)
       )
       setUser(userResponse)
+      blogService.setToken(userResponse.token)
       setSuccessMessage(`Logged in successfully as ${userResponse.name}`)
       setTimeout(() => {
         setSuccessMessage(null)
@@ -109,7 +112,7 @@ const App = () => {
           <p>
             {user.name} logged in <button onClick={handleLogout}>logout</button>
           </p>
-          <Togglable buttonLabel="new blog">
+          <Togglable buttonLabel="new blog" ref={blogFormRef}>
             <BlogForm createBlog={addBlog} />
           </Togglable>
           <BlogList blogs={blogs} deleteHandler={handleDelete} likeHandler={handleLike} user={user} />

@@ -7,7 +7,7 @@ const BlogForm = ({ createBlog }) => {
   const [url, setUrl] = useState('')
   const [likes, setLikes] = useState(0)
 
-  const addBlog = async (event) => {
+  const addBlog = (event) => {
     event.preventDefault()
 
     createBlog({
@@ -31,6 +31,7 @@ const BlogForm = ({ createBlog }) => {
           author:
           <input
             type='text'
+            id='author-field'
             value={author}
             name='Author'
             onChange={({ target }) => setAuthor(target.value)}
@@ -40,6 +41,7 @@ const BlogForm = ({ createBlog }) => {
           title:
           <input
             type='text'
+            id='title-field'
             value={title}
             name='Title'
             onChange={({ target }) => setTitle(target.value)}
@@ -49,6 +51,7 @@ const BlogForm = ({ createBlog }) => {
           url:
           <input
             type='url'
+            id='url-field'
             value={url}
             name='Url'
             onChange={({ target }) => setUrl(target.value)}
@@ -63,7 +66,7 @@ const BlogForm = ({ createBlog }) => {
             onChange={({ target }) => setLikes(target.value)}
           />
         </div> */}
-        <div><button type='submit'>Save</button></div>
+        <div><button id='blog-submit' type='submit'>Save</button></div>
       </form>
     </div>
   )

@@ -4,7 +4,10 @@ import PropTypes from 'prop-types'
 const BlogDetails = ({ blog, deleteHandler, likeHandler, user }) => (
   <div className="blogDetails">
     <p>{blog.url}</p>
-    <p className='blogLikes'>likes {blog.likes} <button onClick={() => likeHandler(blog)}>like</button></p>
+    <p className='blogLikes'>
+      likes <span className='likeCount'>{blog.likes}</span>
+      <button className='likeButton' onClick={() => likeHandler(blog)}>like</button>
+    </p>
     <p className='blogUser'>{blog.user.name}</p>
     {blog.user.name === user.name &&
       <button className='deleteBlog' onClick={() => deleteHandler(blog)}>
